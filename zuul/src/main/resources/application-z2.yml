@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: zuul2
+
+server:
+  port: 6002
+
+#zuul:
+# 是否开启重试功能
+#  retryable: true
+#  routes:
+#    tjffy-p1:
+#      path: /procuder1/**
+#      url: http://localhost:6001/
+#    tjffy-p2:
+#      path: /procuder2/**
+#      url: http://localhost:6003/
+#    tjffy-c1:
+#      path: /customer2/**
+#      serviceId: customer2
+#  禁用zuul指定的filter
+#  FormBodyWrapperFilter:
+#    pre:
+#      disable: true
+#    routing:
+#      disable: true
+#    post:
+#      disable: true
+#    error:
+#      disable: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5001/eureka/, http://localhost:5002/eureka/, http://localhost:5003/eureka/
