@@ -13,3 +13,8 @@ ribbon:
   MaxAutoRetries: 2
 # 切换相同Server的次数
   MaxAutoRetriesNextServer: 0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5001/eureka/

@@ -19,4 +19,4 @@ turbine:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:5001/eureka/, http://localhost:5002/eureka/, http://localhost:5003/eureka/
+      defaultZone: http://localhost:5001/eureka/
