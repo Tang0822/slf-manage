@@ -3,7 +3,7 @@ services:
   sys:
       image: tjffy/sys:0.0.1-SNAPSHOT
       ports:
-        - "4001:4001"
+        - "8100:8100"
       container_name: sys
       volumes:
         - /etc/localtime:/etc/localtime
