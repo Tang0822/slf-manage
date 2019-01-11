@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * @author jftang3
+ */
 @Getter
 @Setter
 public class BaseEntity {

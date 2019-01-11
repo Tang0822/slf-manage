@@ -1,6 +1,6 @@
 package com.slf.manage.sys.domain;
 
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -2,7 +2,6 @@ package com.slf.manage.sys.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.omg.CORBA.BAD_CONTEXT;
 
 import javax.persistence.*;
 

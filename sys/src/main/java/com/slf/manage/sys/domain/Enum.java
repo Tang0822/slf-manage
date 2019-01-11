@@ -1,9 +1,9 @@
 package com.slf.manage.sys.domain;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author jftang3

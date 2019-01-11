@@ -1,10 +1,10 @@
 package com.slf.manage.sys.domain;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author jftang3
