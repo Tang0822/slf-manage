@@ -5,10 +5,9 @@
 	<parent>
 		<groupId>com.slf.manage</groupId>
 		<artifactId>slf-manage</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.slf.manage</groupId>
 	<artifactId>sys</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sys</name>
