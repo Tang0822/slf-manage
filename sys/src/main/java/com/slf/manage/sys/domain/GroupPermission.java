@@ -2,6 +2,7 @@ package com.slf.manage.sys.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.omg.CORBA.BAD_CONTEXT;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_group_permission")
-public class GroupPermission {
+public class GroupPermission extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

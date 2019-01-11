@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_user")
-public class User {
+public class User extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,6 +24,21 @@ public class User {
 
     @NotNull
     private String password;
+
+    @NotNull
+    private String realName;
+
+    private Building building;
+
+    private Floor floor;
+
+    private Enum room;
+
+    private String mail;
+
+    private String phone;
+
+    private Integer isAble;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")

@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "t_group")
-public class Group {
+public class Group extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

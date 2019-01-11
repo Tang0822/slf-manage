@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "t_permission")
-public class Permission {
+public class Permission extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
