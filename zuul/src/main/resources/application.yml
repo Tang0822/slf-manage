@@ -13,6 +13,3 @@ ribbon:
   MaxAutoRetries: 2
 # 切换相同Server的次数
   MaxAutoRetriesNextServer: 0
-
-logging:
-  config: classpath:logback.xml
