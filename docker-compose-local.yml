@@ -1,0 +1,68 @@
+version: '3'
+services:
+  eureka-server-cluster1:
+      image: tjffy/eureka-server-cluster:0.0.1-SNAPSHOT
+      ports:
+        - "5001:5001"
+      container_name: eureka-server-cluster1
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=e1", "-jar", "/app.jar"]
+  eureka-server-cluster2:
+      image: tjffy/eureka-server-cluster:0.0.1-SNAPSHOT
+      ports:
+        - "5002:5002"
+      container_name: eureka-server-cluster2
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=e2", "-jar", "/app.jar"]
+  eureka-server-cluster3:
+      image: tjffy/eureka-server-cluster:0.0.1-SNAPSHOT
+      ports:
+        - "5003:5003"
+      container_name: eureka-server-cluster3
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=e3", "-jar", "/app.jar"]
+  zuul1:
+      image: tjffy/zuul:0.0.1-SNAPSHOT
+      ports:
+        - "6001:6001"
+      container_name: zuul1
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=z1", "-jar", "/app.jar"]
+  zuul2:
+      image: tjffy/zuul:0.0.1-SNAPSHOT
+      ports:
+        - "6002:6002"
+      container_name: zuul2
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=z2", "-jar", "/app.jar"]
+  zipkin:
+      image: tjffy/zipkin:0.0.1-SNAPSHOT
+      ports:
+        - "7001:7001"
+      container_name: zuul1
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
+  dashboard:
+      image: tjffy/dashboard:0.0.1-SNAPSHOT
+      ports:
+        - "4001:4001"
+      container_name: dashboard
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
+  sys:
+      image: tjffy/sys:0.0.1-SNAPSHOT
+      ports:
+        - "4001:4001"
+      container_name: sys
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=local", "-jar", "/app.jar"]
+      links:
+        - zipkin

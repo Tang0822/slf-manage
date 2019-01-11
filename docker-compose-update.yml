@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sys:
+      image: tjffy/sys:0.0.1-SNAPSHOT
+      ports:
+        - "4001:4001"
+      container_name: sys
+      volumes:
+        - /etc/localtime:/etc/localtime
+      command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=dev", "-jar", "/app.jar"]
+      links:
+        - zipkin
