@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/tjffy?useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: 1234
+    password: 123456
   jpa:
     show-sql: true
   redis:

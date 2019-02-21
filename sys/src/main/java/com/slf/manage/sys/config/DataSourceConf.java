@@ -10,9 +10,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
- * @author jftang3
- */
 @Configuration
 public class DataSourceConf {
 

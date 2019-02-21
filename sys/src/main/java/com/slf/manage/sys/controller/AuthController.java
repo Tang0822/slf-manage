@@ -32,8 +32,6 @@ public class AuthController {
     //验证码过期时间五分钟
     private final int validCodeExpirationTime = 300000;
 
-
-
     @RequestMapping(value = "/login/failure", method = RequestMethod.GET)
     public Map<String, Object> loginFailure(HttpServletRequest request, HttpServletResponse response) {
         log.info("Enter loginFailure");

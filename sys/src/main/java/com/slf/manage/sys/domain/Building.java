@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author jftang3
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_building")
-public class Building extends BaseEntity{
+public class Building {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,5 +22,9 @@ public class Building extends BaseEntity{
     private String name;
 
     private String content;
+
+    private Date createTime;
+
+    private Date updateTime;
 
 }

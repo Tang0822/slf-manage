@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author jftang3
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_group_permission")
-public class GroupPermission extends BaseEntity{
+public class GroupPermission {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -25,4 +26,8 @@ public class GroupPermission extends BaseEntity{
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="p_id")
     private Permission permission;
+
+    private Date createTime;
+
+    private Date updateTime;
 }

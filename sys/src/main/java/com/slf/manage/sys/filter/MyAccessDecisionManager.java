@@ -33,10 +33,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
         String url, method;
         while (ite.hasNext()) {
-            ConfigAttribute ca = ite.next();
-            String group = ((SecurityConfig) ca).getAttribute();
+            String group = ite.next().getAttribute();
             log.info("---------------------------------》》》》 co valuse {}", group);
-            log.info("---------------------------------》》》》 authentication size" + authentication.getAuthorities().size());
+            if (group.equals("unAuth")) {
+                throw new AccessDeniedException("无权限");
+            }
+            log.info("---------------------------------》》》》 authentication size: " + authentication.getAuthorities().size());
             // ga 为用户所被赋予的权限。 needRole 为访问相应的资源应该具有的权限。
             for (GrantedAuthority ga : authentication.getAuthorities()) {
                 MyGrantedAuthority myGrantedAuthority = (MyGrantedAuthority) ga;

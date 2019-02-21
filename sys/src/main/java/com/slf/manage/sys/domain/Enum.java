@@ -3,6 +3,7 @@ package com.slf.manage.sys.domain;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -13,9 +14,10 @@ import javax.persistence.Table;
 @Table(name = "t_enum")
 public class Enum {
 
-    private String sign;
-
+    @Id
     private String code;
+
+    private String sign;
 
     private String content;
 

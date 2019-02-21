@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * @author jftang3
- */
 @Repository
 public interface AuthRepository extends JpaRepository<Permission, Integer> {
 

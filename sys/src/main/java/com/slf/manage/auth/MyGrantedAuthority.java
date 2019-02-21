@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * @author jftang3
+ */
 @Getter
 @Setter
 public class MyGrantedAuthority implements GrantedAuthority {

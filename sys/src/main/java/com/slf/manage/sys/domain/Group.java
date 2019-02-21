@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "t_group")
-public class Group extends BaseEntity{
+public class Group {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -38,4 +39,8 @@ public class Group extends BaseEntity{
     @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
     @JoinTable(name="t_group_permission",joinColumns={@JoinColumn(name="g_id")},inverseJoinColumns={@JoinColumn(name="p_id")})
     private List<Permission> permissions;
+
+    private Date createTime;
+
+    private Date updateTime;
 }
