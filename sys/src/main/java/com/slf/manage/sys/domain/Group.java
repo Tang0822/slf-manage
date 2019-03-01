@@ -36,7 +36,7 @@ public class Group {
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private List<GroupPermission> groupPermissions;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="t_group_permission",joinColumns={@JoinColumn(name="g_id")},inverseJoinColumns={@JoinColumn(name="p_id")})
     private List<Permission> permissions;
 

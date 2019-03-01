@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    /**
+     * 解决 懒加载 JPA 典型的 N + 1 问题
+     */
+    @EntityGraph(value = "Group.Graph", type = EntityGraph.EntityGraphType.FETCH)
     Page<User> findByUserNameLike(String userName, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"group", "group.permissions"})
     User findByUserName(String userName);
 }

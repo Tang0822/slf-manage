@@ -22,7 +22,7 @@ import java.util.Random;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = "/sys/auth")
+@RequestMapping(value = "/auth")
 public class AuthController {
 
     private final String validCodeParameter = "checkCode";
@@ -69,7 +69,7 @@ public class AuthController {
      * @param response response
      * @throws Exception 异常
      */
-    @RequestMapping(value = "/getCheckCode", method = RequestMethod.GET)
+        @RequestMapping(value = "/getCheckCode", method = RequestMethod.GET)
     public void checkCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // 禁止缓存

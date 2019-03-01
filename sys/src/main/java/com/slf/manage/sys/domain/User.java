@@ -14,6 +14,10 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "t_user")
+@NamedEntityGraph(
+        name = "Group.Graph",
+        attributeNodes = {@NamedAttributeNode("group")}
+)
 public class User {
 
     @Id
@@ -29,15 +33,15 @@ public class User {
     @NotNull
     private String realName;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private Building building;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id")
     private Floor floor;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room")
     private Enum room;
 
@@ -47,7 +51,7 @@ public class User {
 
     private Integer isAble;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
 

@@ -1,22 +1,13 @@
 package com.slf.manage.sys.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.slf.manage.sys.filter.AuthenticationSuccessHandler;
 import com.slf.manage.sys.filter.LogoutSuccessHandler;
 import com.slf.manage.sys.filter.MyFilterSecurityInterceptor;
 import com.slf.manage.sys.filter.MyUsernamePasswordAuthenticationFilter;
-//import com.slf.manage.sys.repositories.AuthRepository;
 import com.slf.manage.sys.service.impl.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,10 +22,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 
 /**
  * @author jftang3
@@ -83,37 +70,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new LogoutSuccessHandler();
     }
 
-    @Autowired
-    private Environment env;
-
-    /*@Bean
-    @Qualifier("sysDataSource")
-    public DataSource dataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(env.getProperty("spring.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.datasource.password"));
-        return dataSource;
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.slf.manage.sys.domain");
-        factory.setDataSource(dataSource());
-        return factory;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory);
-        return txManager;
-    }*/
-
     @Bean
     MyUsernamePasswordAuthenticationFilter myUsernamePasswordAuthenticationFilter() throws Exception {
         MyUsernamePasswordAuthenticationFilter myUsernamePasswordAuthenticationFilter = new MyUsernamePasswordAuthenticationFilter();
@@ -146,10 +102,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
                 .anyRequest().authenticated()
+                .antMatchers("/", "/login").permitAll()
                 .and()
-                .formLogin().loginPage("/login/login_page").loginProcessingUrl("/login").permitAll()
+                .formLogin().loginPage("/auth/login/login_page").loginProcessingUrl("/login").permitAll()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler()).permitAll()
                 .and()

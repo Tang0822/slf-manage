@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,22 +25,28 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
-        if (collection.size() == 0) {
+        if (collection == null) {
             throw new AccessDeniedException("无权限");
         }
-        Iterator<ConfigAttribute> ite = collection.iterator();
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
         String url, method;
+        Iterator<ConfigAttribute> ite = collection.iterator();
         while (ite.hasNext()) {
             String group = ite.next().getAttribute();
             log.info("---------------------------------》》》》 co valuse {}", group);
-            if (group.equals("unAuth")) {
-                throw new AccessDeniedException("无权限");
-            }
             log.info("---------------------------------》》》》 authentication size: " + authentication.getAuthorities().size());
+            if (authentication.getPrincipal().equals("anonymousUser")) {
+                log.info("免验证");
+                return;
+            }
             // ga 为用户所被赋予的权限。 needRole 为访问相应的资源应该具有的权限。
             for (GrantedAuthority ga : authentication.getAuthorities()) {
                 MyGrantedAuthority myGrantedAuthority = (MyGrantedAuthority) ga;
+
+                if(myGrantedAuthority.getGroup().equals(group)){
+                    return;
+                }
+
                 url = myGrantedAuthority.getAuthority().split(";")[0];
                 method = myGrantedAuthority.getAuthority().split(";")[1];
                 if (matchers(url, request)) {

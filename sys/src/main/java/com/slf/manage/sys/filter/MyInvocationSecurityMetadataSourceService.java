@@ -21,13 +21,10 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     @Autowired
     private AuthRepository authRepository;
 
-    private static Map<String, Collection<ConfigAttribute>> permissionMap = new HashMap<>();
+    private Map<String, Collection<ConfigAttribute>> permissionMap = new HashMap<>();
 
     private void loadPermission() {
         List<Permission> permissions = authRepository.findAll();
-        Collection<ConfigAttribute> unAuth = new ArrayList<>();
-        unAuth.add(new SecurityConfig("unAuth"));
-        permissionMap.put("unAuth", unAuth);
         for (Permission permission : permissions) {
             String key = permission.getMethod() + "-" + permission.getUrl();
             List<Group> groups = permission.getGroups();
@@ -44,14 +41,16 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
                 }
             }
         }
+        /*if (permissionMap.size() == 0) {
+            Collection<ConfigAttribute> unAuth = new ArrayList<>();
+            unAuth.add(new SecurityConfig("unAuth"));
+            permissionMap.put("unAuth", unAuth);
+        }*/
     }
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        if (authRepository.findAll().size() + 1 != permissionMap.size()) {
-            permissionMap.clear();
-            loadPermission();
-        }
+        loadPermission();
         // o 是一个URL，被用户请求的url。
         String url = ((FilterInvocation) o).getRequestUrl();
         String method = ((FilterInvocation) o).getHttpRequest().getMethod();
@@ -60,14 +59,12 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
             url = url.substring(0, firstQuestionMarkIndex);
         }
         url = method + "-" + url;
-        Iterator<String> ite = permissionMap.keySet().iterator();
-        while (ite.hasNext()) {
-            String resURL = ite.next();
-            if (url.split(resURL).length > 1 || url.equals(resURL)) {
+        for (String resURL : permissionMap.keySet()) {
+            if ((resURL.split("-")[0].equals("ALL") && resURL.contains("/**")) || url.equals(resURL)) {
                 return permissionMap.get(resURL);
             }
         }
-        return permissionMap.get("unAuth");
+        return null;
     }
 
     @Override
