@@ -1,3 +1,15 @@
 spring:
   application:
     name: eureka
+
+server:
+  port: 5001
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5001/eureka/
+    register-with-eureka: false
+    fetch-registry: false

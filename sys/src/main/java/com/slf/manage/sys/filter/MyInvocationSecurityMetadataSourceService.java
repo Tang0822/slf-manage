@@ -50,6 +50,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+        permissionMap.clear();
         loadPermission();
         // o 是一个URL，被用户请求的url。
         String url = ((FilterInvocation) o).getRequestUrl();

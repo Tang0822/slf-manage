@@ -22,6 +22,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 /**
  * @author jftang3
@@ -46,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
     @Bean
-    UserDetailsService myUserDetailsServiceImpl() {
+    public UserDetailsService myUserDetailsServiceImpl() {
         return new MyUserDetailsServiceImpl();
     }
 
@@ -102,8 +103,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
                 .antMatchers("/", "/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login/login_page").loginProcessingUrl("/login").permitAll()
                 .and()

@@ -1,18 +1,20 @@
 spring:
-# 采样比例为1.0，也就是全部都需要
   sleuth:
     sampler:
       percentage: 1.0
 
 zuul:
-# 是否开启重试功能
   retryable: true
+  routes:
+    sys:
+      sensitiveHeaders: "*"
 
 ribbon:
-# 对当前服务的重试次数
   MaxAutoRetries: 2
-# 切换相同Server的次数
   MaxAutoRetriesNextServer: 0
+  ReadTimeout: 6000
+  ConnectTimeout: 3000
+
 
 eureka:
   client:

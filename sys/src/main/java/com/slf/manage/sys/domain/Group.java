@@ -37,7 +37,8 @@ public class Group {
     private List<GroupPermission> groupPermissions;
 
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="t_group_permission",joinColumns={@JoinColumn(name="g_id")},inverseJoinColumns={@JoinColumn(name="p_id")})
+    @JoinTable(name="t_group_permission",
+            joinColumns={@JoinColumn(name="g_id")},inverseJoinColumns={@JoinColumn(name="p_id")})
     private List<Permission> permissions;
 
     private Date createTime;

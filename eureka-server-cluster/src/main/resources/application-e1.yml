@@ -6,5 +6,4 @@ eureka:
     hostname: localhost
   client:
       serviceUrl:
-#        defaultZone: http://127.0.0.1:5001/eureka/, http://127.0.0.1:5003/eureka/
-        defaultZone: http://localhost:5001/eureka/
+        defaultZone: http://127.0.0.1:5001/eureka/, http://127.0.0.1:5003/eureka/

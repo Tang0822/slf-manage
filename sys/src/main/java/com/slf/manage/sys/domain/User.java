@@ -1,5 +1,6 @@
 package com.slf.manage.sys.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +15,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "t_user")
-@NamedEntityGraph(
-        name = "Group.Graph",
-        attributeNodes = {@NamedAttributeNode("group")}
-)
 public class User {
 
     @Id
@@ -51,6 +48,7 @@ public class User {
 
     private Integer isAble;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;

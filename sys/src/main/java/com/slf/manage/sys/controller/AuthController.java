@@ -57,7 +57,7 @@ public class AuthController {
     @RequestMapping(value = "/login/login_page", method = RequestMethod.GET)
     public Map<String, Object> loginAjax1() {
         Map<String, Object> result = new HashMap<>();
-        result.put("status", 200);
+        result.put("status", 401);
         result.put("message", "用户未登录");
         return result;
     }

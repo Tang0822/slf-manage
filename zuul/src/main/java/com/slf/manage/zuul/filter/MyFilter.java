@@ -3,9 +3,9 @@ package com.slf.manage.zuul.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author jftang3
@@ -38,21 +38,9 @@ public class MyFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
 
         log.info("--->>> MyFilter {},{}", request.getMethod(), request.getRequestURL().toString());
-        //获取请求的参数
-        String token = request.getParameter("name");
-        if (StringUtils.isNotBlank(token)) {
-            //对请求进行路由
-            ctx.setSendZuulResponse(true);
-            ctx.setResponseStatusCode(200);
-            ctx.set("isSuccess", true);
-            return null;
-        } else {
-            //不对其进行路由
-            ctx.setSendZuulResponse(false);
-            ctx.setResponseStatusCode(400);
-            ctx.setResponseBody("name is empty");
-            ctx.set("isSuccess", false);
-            return null;
-        }
+        //获取请求的参数 todo
+        HttpSession session = request.getSession();
+        ctx.setSendZuulResponse(true);
+        return null;
     }
 }
