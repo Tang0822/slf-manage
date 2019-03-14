@@ -4,6 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Utility class for handling pagination.
  *
@@ -35,6 +38,15 @@ public final class PaginationUtil {
         }
         link += "<" + generateUri(baseUrl, lastPage, page.getSize()) + ">; rel=\"last\",";
         link += "<" + generateUri(baseUrl, 0, page.getSize()) + ">; rel=\"first\"";
+        headers.add(HttpHeaders.LINK, link);
+        return headers;
+    }
+
+    public static HttpHeaders generateMapHttpHeaders(Map map, String baseUrl) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Total-Count", "" + Long.toString(map.keySet().size()));
+        String link = "";
         headers.add(HttpHeaders.LINK, link);
         return headers;
     }

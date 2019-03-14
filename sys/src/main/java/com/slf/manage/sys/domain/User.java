@@ -40,7 +40,7 @@ public class User {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room")
-    private Enum room;
+    private Room room;
 
     private String mail;
 
