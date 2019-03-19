@@ -33,7 +33,7 @@ public class UserQuery extends BaseQuery<User>{
     @QueryWord(column = "floor_id", func = MatchType.equal)
     private Integer floorId;
 
-    @QueryWord(column = "room", func = MatchType.equal)
+    @QueryWord(column = "room_id", func = MatchType.equal)
     private Integer room;
 
     @Override
