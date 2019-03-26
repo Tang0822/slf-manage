@@ -45,7 +45,6 @@ public class User {
 
     private Integer isAble;
 
-    @JsonIgnoreProperties(value = {"users"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
@@ -73,6 +72,8 @@ public class User {
         user.setMail(userDto.getMail());
         user.setPhone(userDto.getPhone());
         user.setRealName(userDto.getRealName());
+        user.setUserName(userDto.getUserName());
+        user.setPassword(userDto.getPassword());
         return user;
 
     }

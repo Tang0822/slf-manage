@@ -63,12 +63,17 @@ public class SysController {
         if (bindingResult.hasErrors()) {
             return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
-        User user = userRepository.save(User.tranUser(userDto));
-        if (user.getId() != null) {
+        User user = User.tranUser(userDto);
+        if (userRepository.save(user).getId() != null) {
             return new ResponseDto(HttpStatus.OK, user);
         } else {
             return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
+    }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseDto deleteUser(@PathVariable Integer id) {
+        userRepository.delete(id);
+        return new ResponseDto(HttpStatus.OK, "删除成功");
     }
 }
