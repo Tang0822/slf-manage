@@ -1,6 +1,8 @@
 package com.slf.manage.sys.domain;
 
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "t_group")
+@JsonIgnoreProperties(value = {"users", "permissions", "groupPermissions"})
 public class Group {
 
     @Id

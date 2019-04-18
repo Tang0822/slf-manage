@@ -1,24 +1,19 @@
 package com.slf.manage.sys.controller;
 
 import com.slf.manage.sys.domain.User;
-import com.slf.manage.sys.repositories.UserRepository;
-import com.slf.manage.util.PaginationUtil;
+import com.slf.manage.sys.domain.dto.UserDto;
+import com.slf.manage.sys.repositories.*;
+import com.slf.manage.util.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,11 +27,53 @@ public class SysController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BuildingRepository buildingRepository;
+
+    @Autowired
+    private FloorRepository floorRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity<Page<User>> userList(@RequestParam(defaultValue = "") String userName,
-                                               @PageableDefault Pageable pageable) {
-        Page<User> users = userRepository.findByUserNameContaining(userName, pageable);
-        HttpHeaders httpHeaders = PaginationUtil.generatePaginationHttpHeaders(users,"/users/list");
-        return new ResponseEntity<>(users, httpHeaders, HttpStatus.OK);
+    public ResponseDto userList(@RequestParam(defaultValue = "") String userName,
+                                @RequestParam Integer building,
+                                @RequestParam Integer floor,
+                                @RequestParam Integer room,
+                                @PageableDefault(size = 10, page = 0) Pageable pageable) {
+        UserQuery userQuery = new UserQuery(null, userName, building, floor, room);
+        Page<User> users = userRepository.findAll(userQuery.toSpec(), pageable);
+        return new ResponseDto(HttpStatus.OK, users);
+    }
+
+    @RequestMapping(value = "/options", method = RequestMethod.GET)
+    public ResponseDto buildingList(@PageableDefault(size = 100, page = 0) Pageable pageable,
+                                             @RequestParam(defaultValue = "") String sign) {
+        Map<String, Page> map = new HashMap<>();
+        map.put("buildings", buildingRepository.findAll(pageable));
+        map.put("floors", floorRepository.findAll(pageable));
+        map.put("rooms", roomRepository.findAllBySign(sign, pageable));
+        return new ResponseDto(HttpStatus.OK, map);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseDto saveUser(UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "参数错误");
+        }
+        User user = User.tranUser(userDto);
+        if (userRepository.save(user).getId() != null) {
+            return new ResponseDto(HttpStatus.OK, user);
+        } else {
+            return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseDto deleteUser(@PathVariable Integer id) {
+        userRepository.delete(id);
+        return new ResponseDto(HttpStatus.OK, "删除成功");
     }
 }
