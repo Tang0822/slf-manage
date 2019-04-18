@@ -36,7 +36,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
                 GrantedAuthority grantedAuthority = new MyGrantedAuthority(group.getName(), permission.getUrl(), permission.getMethod(), permission.getIsCom(), permission.getPath());
                 grantedAuthorities.add(grantedAuthority);
             }
-            return new MyUserDetails(user.getId(), username, user.getPassword(), true, group.getId(), group.getType(), grantedAuthorities);
+            return new MyUserDetails(user.getId(), username, user.getPassword(), true, group.getType(), group.getId(), grantedAuthorities);
         } else {
             throw new UsernameNotFoundException(username + " do not exist!");
         }
