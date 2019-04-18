@@ -61,7 +61,7 @@ public class SysController {
     @ResponseBody
     public ResponseDto saveUser(UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, null);
+            return new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "参数错误");
         }
         User user = User.tranUser(userDto);
         if (userRepository.save(user).getId() != null) {
